@@ -11,6 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.stage.Stage;
 import java.time.Duration;
+import java.util.Collections;
+
 import org.mbari.vcr4j.sharktopoda.client.localization.IO;
 import org.mbari.vcr4j.sharktopoda.client.localization.Localization;
 
@@ -58,9 +60,9 @@ public class App extends Application {
     }
 
     private String formatDuration(Duration duration) {
-        return String.format("%d:%02d:%02d:%03d", 
-                                duration.toHours(), 
-                                duration.toMinutesPart(), 
+        return String.format("%d:%02d:%02d:%03d",
+                                duration.toHours(),
+                                duration.toMinutesPart(),
                                 duration.toSecondsPart(),
                                 duration.toMillisPart());
     }
@@ -82,6 +84,16 @@ public class App extends Application {
             }
         });
         table.setItems(items);
+
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            System.out.println("newSelection: " + newSelection);
+            if (newSelection != null) {
+                io.getSelectionController().select(Collections.singleton(newSelection), true);
+            }
+            else {
+                io.getSelectionController().clearSelections();
+            }
+        });
     }
 
     public static void main(String[] args) {
