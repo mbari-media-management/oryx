@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Scene;
 
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.time.Duration;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.mbari.vcr4j.sharktopoda.client.localization.IO;
 import org.mbari.vcr4j.sharktopoda.client.localization.Localization;
@@ -29,6 +32,7 @@ public class App extends Application {
 
         var table = new TableView<Localization>();
         table.setEditable(false);
+        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         var conceptCol = new TableColumn<Localization, String>("Concept");
         conceptCol.setCellValueFactory(new PropertyValueFactory<Localization, String>("concept"));
@@ -86,12 +90,13 @@ public class App extends Application {
         table.setItems(items);
 
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            System.out.println("newSelection: " + newSelection);
-            if (newSelection != null) {
-                io.getSelectionController().select(Collections.singleton(newSelection), true);
+            Set<Localization> selected = new HashSet<>(table.getSelectionModel().getSelectedItems());
+            System.out.println("selected: (" +selected.size()+ "): " + selected);
+            if (selected.isEmpty()) {
+                io.getSelectionController().clearSelections();
             }
             else {
-                io.getSelectionController().clearSelections();
+                io.getSelectionController().select(selected, true);
             }
         });
     }
