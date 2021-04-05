@@ -1,0 +1,48 @@
+<configuration>
+
+    <timestamp key="timestamp" datePattern="yyyyMMdd'@'HH:mm:ss" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <!-- <pattern>%d{HH:mm:ss.SSS} [%-30thread] %-5level %-40logger{40} | %msg%n</pattern> -->
+            <pattern>%gray(%d{HH:mm:ss.SSS}) [%green(%-25thread)] %highlight(%-5level) %blue(%-40logger{40}) %gray(|) %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+        During development, keep a new timestamped log each time the application is run.
+    -->
+    <!-- <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>cthulhu-${timestamp}.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%-30thread] %-5level %-40logger{40} | %msg%n</pattern>
+        </encoder>
+    </appender> -->
+
+    <!--
+        Category for log messages from the native (LibVLC) logger.
+    -->
+    <logger name="org.mbari.cthulhu.app.NativeLogHandler" level="OFF">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.mbari.cthulhu.ui.components.annotationview.AnnotationImageView" level="DEBUG" />
+    <logger name="org.mbari.cthulhu.ui.components.annotationview.BoxEditHandler" level="DEBUG" />
+    <logger name="org.mbari.cthulhu.annotations.AnnotationController" level="INFO" />
+    <logger name="org.mbari.cthulhu.annotations.AnnotationManager" level="INFO" />
+    <!-- <logger name="org.mbari.vcr4j.sharktopoda.client.udp.UdpIO" level="DEBUG" /> -->
+     <logger name="org.mbari.cthulhu.app.CthulhuClientController" level="WARN" />
+     <logger name="org.mbari.cthulhu.app.PlayerComponents" level="WARN" />
+     <logger name="org.mbari.cthulhu.ui.player.PlayerComponent" level="WARN" />
+     <logger name="org.mbari.cthulhu.ui.player.PlayerComponentStage" level="WARN" />
+     <logger name="org.mbari.vcr4j.sharktopoda.client.udp.UdpIO" level="WARN" />
+     <logger name="org.mbari.cthulhu.app.CthulhuApplication" level="WARN" />
+     <logger name="org.mbari.cthulhu.ui.player.MediaPlayerTimer" level="TRACE" />
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+        <!-- <appender-ref ref="FILE" />-->
+    </root>
+
+</configuration>

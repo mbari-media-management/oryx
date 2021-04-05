@@ -22,6 +22,11 @@
             <artifactId>vcr4j-sharktopoda-client</artifactId>
             <version>${vcr4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.3.0-alpha4</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
