@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mbari</groupId>
     <artifactId>oryx</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <javafx.version>15.0.1</javafx.version>
-        <vcr4j.version>4.4.0.jre11</vcr4j.version>
+        <javafx.version>16</javafx.version>
+        <vcr4j.version>4.4.1.jre11</vcr4j.version>
     </properties>
     <dependencies>
         <dependency>
